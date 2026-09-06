@@ -10,33 +10,362 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AddFundRouteImport } from './routes/add-fund'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AdminLoginRouteImport } from './routes/admin-login'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BankDetailsRouteImport } from './routes/bank-details'
+import { Route as ChangePasswordRouteImport } from './routes/change-password'
+import { Route as DownloadRouteImport } from './routes/download'
+import { Route as GameRatesRouteImport } from './routes/game-rates'
+import { Route as GiftRouteImport } from './routes/gift'
+import { Route as LiveChartRouteImport } from './routes/live-chart'
+import { Route as Matka777AdminPanelAccessRouteImport } from './routes/matka777-admin-panel-access'
+import { Route as MyBetsRouteImport } from './routes/my-bets'
+import { Route as NoticeRouteImport } from './routes/notice'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as PaymentHistoryRouteImport } from './routes/payment-history'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as SattaRouteImport } from './routes/satta'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as UpiDetailsRouteImport } from './routes/upi-details'
+import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as WithdrawRouteImport } from './routes/withdraw'
+import { Route as ChartIdRouteImport } from './routes/chart.$id'
+import { Route as MarketIdRouteImport } from './routes/market.$id'
+import { Route as MarketIdTypeRouteImport } from './routes/market.$id.$type'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AddFundRoute = AddFundRouteImport.update({
+  id: '/add-fund',
+  path: '/add-fund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin-login',
+  path: '/admin-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BankDetailsRoute = BankDetailsRouteImport.update({
+  id: '/bank-details',
+  path: '/bank-details',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChangePasswordRoute = ChangePasswordRouteImport.update({
+  id: '/change-password',
+  path: '/change-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadRoute = DownloadRouteImport.update({
+  id: '/download',
+  path: '/download',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GameRatesRoute = GameRatesRouteImport.update({
+  id: '/game-rates',
+  path: '/game-rates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GiftRoute = GiftRouteImport.update({
+  id: '/gift',
+  path: '/gift',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveChartRoute = LiveChartRouteImport.update({
+  id: '/live-chart',
+  path: '/live-chart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Matka777AdminPanelAccessRoute =
+  Matka777AdminPanelAccessRouteImport.update({
+    id: '/matka777-admin-panel-access',
+    path: '/matka777-admin-panel-access',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const MyBetsRoute = MyBetsRouteImport.update({
+  id: '/my-bets',
+  path: '/my-bets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticeRoute = NoticeRouteImport.update({
+  id: '/notice',
+  path: '/notice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentHistoryRoute = PaymentHistoryRouteImport.update({
+  id: '/payment-history',
+  path: '/payment-history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SattaRoute = SattaRouteImport.update({
+  id: '/satta',
+  path: '/satta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpiDetailsRoute = UpiDetailsRouteImport.update({
+  id: '/upi-details',
+  path: '/upi-details',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WithdrawRoute = WithdrawRouteImport.update({
+  id: '/withdraw',
+  path: '/withdraw',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChartIdRoute = ChartIdRouteImport.update({
+  id: '/chart/$id',
+  path: '/chart/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketIdRoute = MarketIdRouteImport.update({
+  id: '/market/$id',
+  path: '/market/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketIdTypeRoute = MarketIdTypeRouteImport.update({
+  id: '/$type',
+  path: '/$type',
+  getParentRoute: () => MarketIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-fund': typeof AddFundRoute
+  '/admin': typeof AdminRoute
+  '/admin-login': typeof AdminLoginRoute
+  '/auth': typeof AuthRoute
+  '/bank-details': typeof BankDetailsRoute
+  '/change-password': typeof ChangePasswordRoute
+  '/download': typeof DownloadRoute
+  '/game-rates': typeof GameRatesRoute
+  '/gift': typeof GiftRoute
+  '/live-chart': typeof LiveChartRoute
+  '/matka777-admin-panel-access': typeof Matka777AdminPanelAccessRoute
+  '/my-bets': typeof MyBetsRoute
+  '/notice': typeof NoticeRoute
+  '/notifications': typeof NotificationsRoute
+  '/payment-history': typeof PaymentHistoryRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/satta': typeof SattaRoute
+  '/settings': typeof SettingsRoute
+  '/support': typeof SupportRoute
+  '/upi-details': typeof UpiDetailsRoute
+  '/wallet': typeof WalletRoute
+  '/withdraw': typeof WithdrawRoute
+  '/chart/$id': typeof ChartIdRoute
+  '/market/$id': typeof MarketIdRouteWithChildren
+  '/market/$id/$type': typeof MarketIdTypeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-fund': typeof AddFundRoute
+  '/admin': typeof AdminRoute
+  '/admin-login': typeof AdminLoginRoute
+  '/auth': typeof AuthRoute
+  '/bank-details': typeof BankDetailsRoute
+  '/change-password': typeof ChangePasswordRoute
+  '/download': typeof DownloadRoute
+  '/game-rates': typeof GameRatesRoute
+  '/gift': typeof GiftRoute
+  '/live-chart': typeof LiveChartRoute
+  '/matka777-admin-panel-access': typeof Matka777AdminPanelAccessRoute
+  '/my-bets': typeof MyBetsRoute
+  '/notice': typeof NoticeRoute
+  '/notifications': typeof NotificationsRoute
+  '/payment-history': typeof PaymentHistoryRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/satta': typeof SattaRoute
+  '/settings': typeof SettingsRoute
+  '/support': typeof SupportRoute
+  '/upi-details': typeof UpiDetailsRoute
+  '/wallet': typeof WalletRoute
+  '/withdraw': typeof WithdrawRoute
+  '/chart/$id': typeof ChartIdRoute
+  '/market/$id': typeof MarketIdRouteWithChildren
+  '/market/$id/$type': typeof MarketIdTypeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-fund': typeof AddFundRoute
+  '/admin': typeof AdminRoute
+  '/admin-login': typeof AdminLoginRoute
+  '/auth': typeof AuthRoute
+  '/bank-details': typeof BankDetailsRoute
+  '/change-password': typeof ChangePasswordRoute
+  '/download': typeof DownloadRoute
+  '/game-rates': typeof GameRatesRoute
+  '/gift': typeof GiftRoute
+  '/live-chart': typeof LiveChartRoute
+  '/matka777-admin-panel-access': typeof Matka777AdminPanelAccessRoute
+  '/my-bets': typeof MyBetsRoute
+  '/notice': typeof NoticeRoute
+  '/notifications': typeof NotificationsRoute
+  '/payment-history': typeof PaymentHistoryRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/satta': typeof SattaRoute
+  '/settings': typeof SettingsRoute
+  '/support': typeof SupportRoute
+  '/upi-details': typeof UpiDetailsRoute
+  '/wallet': typeof WalletRoute
+  '/withdraw': typeof WithdrawRoute
+  '/chart/$id': typeof ChartIdRoute
+  '/market/$id': typeof MarketIdRouteWithChildren
+  '/market/$id/$type': typeof MarketIdTypeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/add-fund'
+    | '/admin'
+    | '/admin-login'
+    | '/auth'
+    | '/bank-details'
+    | '/change-password'
+    | '/download'
+    | '/game-rates'
+    | '/gift'
+    | '/live-chart'
+    | '/matka777-admin-panel-access'
+    | '/my-bets'
+    | '/notice'
+    | '/notifications'
+    | '/payment-history'
+    | '/privacy-policy'
+    | '/satta'
+    | '/settings'
+    | '/support'
+    | '/upi-details'
+    | '/wallet'
+    | '/withdraw'
+    | '/chart/$id'
+    | '/market/$id'
+    | '/market/$id/$type'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/add-fund'
+    | '/admin'
+    | '/admin-login'
+    | '/auth'
+    | '/bank-details'
+    | '/change-password'
+    | '/download'
+    | '/game-rates'
+    | '/gift'
+    | '/live-chart'
+    | '/matka777-admin-panel-access'
+    | '/my-bets'
+    | '/notice'
+    | '/notifications'
+    | '/payment-history'
+    | '/privacy-policy'
+    | '/satta'
+    | '/settings'
+    | '/support'
+    | '/upi-details'
+    | '/wallet'
+    | '/withdraw'
+    | '/chart/$id'
+    | '/market/$id'
+    | '/market/$id/$type'
+  id:
+    | '__root__'
+    | '/'
+    | '/add-fund'
+    | '/admin'
+    | '/admin-login'
+    | '/auth'
+    | '/bank-details'
+    | '/change-password'
+    | '/download'
+    | '/game-rates'
+    | '/gift'
+    | '/live-chart'
+    | '/matka777-admin-panel-access'
+    | '/my-bets'
+    | '/notice'
+    | '/notifications'
+    | '/payment-history'
+    | '/privacy-policy'
+    | '/satta'
+    | '/settings'
+    | '/support'
+    | '/upi-details'
+    | '/wallet'
+    | '/withdraw'
+    | '/chart/$id'
+    | '/market/$id'
+    | '/market/$id/$type'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddFundRoute: typeof AddFundRoute
+  AdminRoute: typeof AdminRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AuthRoute: typeof AuthRoute
+  BankDetailsRoute: typeof BankDetailsRoute
+  ChangePasswordRoute: typeof ChangePasswordRoute
+  DownloadRoute: typeof DownloadRoute
+  GameRatesRoute: typeof GameRatesRoute
+  GiftRoute: typeof GiftRoute
+  LiveChartRoute: typeof LiveChartRoute
+  Matka777AdminPanelAccessRoute: typeof Matka777AdminPanelAccessRoute
+  MyBetsRoute: typeof MyBetsRoute
+  NoticeRoute: typeof NoticeRoute
+  NotificationsRoute: typeof NotificationsRoute
+  PaymentHistoryRoute: typeof PaymentHistoryRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  SattaRoute: typeof SattaRoute
+  SettingsRoute: typeof SettingsRoute
+  SupportRoute: typeof SupportRoute
+  UpiDetailsRoute: typeof UpiDetailsRoute
+  WalletRoute: typeof WalletRoute
+  WithdrawRoute: typeof WithdrawRoute
+  ChartIdRoute: typeof ChartIdRoute
+  MarketIdRoute: typeof MarketIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +377,222 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/add-fund': {
+      id: '/add-fund'
+      path: '/add-fund'
+      fullPath: '/add-fund'
+      preLoaderRoute: typeof AddFundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-login': {
+      id: '/admin-login'
+      path: '/admin-login'
+      fullPath: '/admin-login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bank-details': {
+      id: '/bank-details'
+      path: '/bank-details'
+      fullPath: '/bank-details'
+      preLoaderRoute: typeof BankDetailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/change-password': {
+      id: '/change-password'
+      path: '/change-password'
+      fullPath: '/change-password'
+      preLoaderRoute: typeof ChangePasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/download': {
+      id: '/download'
+      path: '/download'
+      fullPath: '/download'
+      preLoaderRoute: typeof DownloadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/game-rates': {
+      id: '/game-rates'
+      path: '/game-rates'
+      fullPath: '/game-rates'
+      preLoaderRoute: typeof GameRatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gift': {
+      id: '/gift'
+      path: '/gift'
+      fullPath: '/gift'
+      preLoaderRoute: typeof GiftRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-chart': {
+      id: '/live-chart'
+      path: '/live-chart'
+      fullPath: '/live-chart'
+      preLoaderRoute: typeof LiveChartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matka777-admin-panel-access': {
+      id: '/matka777-admin-panel-access'
+      path: '/matka777-admin-panel-access'
+      fullPath: '/matka777-admin-panel-access'
+      preLoaderRoute: typeof Matka777AdminPanelAccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-bets': {
+      id: '/my-bets'
+      path: '/my-bets'
+      fullPath: '/my-bets'
+      preLoaderRoute: typeof MyBetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notice': {
+      id: '/notice'
+      path: '/notice'
+      fullPath: '/notice'
+      preLoaderRoute: typeof NoticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment-history': {
+      id: '/payment-history'
+      path: '/payment-history'
+      fullPath: '/payment-history'
+      preLoaderRoute: typeof PaymentHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/satta': {
+      id: '/satta'
+      path: '/satta'
+      fullPath: '/satta'
+      preLoaderRoute: typeof SattaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upi-details': {
+      id: '/upi-details'
+      path: '/upi-details'
+      fullPath: '/upi-details'
+      preLoaderRoute: typeof UpiDetailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/withdraw': {
+      id: '/withdraw'
+      path: '/withdraw'
+      fullPath: '/withdraw'
+      preLoaderRoute: typeof WithdrawRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chart/$id': {
+      id: '/chart/$id'
+      path: '/chart/$id'
+      fullPath: '/chart/$id'
+      preLoaderRoute: typeof ChartIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/market/$id': {
+      id: '/market/$id'
+      path: '/market/$id'
+      fullPath: '/market/$id'
+      preLoaderRoute: typeof MarketIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/market/$id/$type': {
+      id: '/market/$id/$type'
+      path: '/$type'
+      fullPath: '/market/$id/$type'
+      preLoaderRoute: typeof MarketIdTypeRouteImport
+      parentRoute: typeof MarketIdRoute
+    }
   }
 }
 
+interface MarketIdRouteChildren {
+  MarketIdTypeRoute: typeof MarketIdTypeRoute
+}
+
+const MarketIdRouteChildren: MarketIdRouteChildren = {
+  MarketIdTypeRoute: MarketIdTypeRoute,
+}
+
+const MarketIdRouteWithChildren = MarketIdRoute._addFileChildren(
+  MarketIdRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddFundRoute: AddFundRoute,
+  AdminRoute: AdminRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AuthRoute: AuthRoute,
+  BankDetailsRoute: BankDetailsRoute,
+  ChangePasswordRoute: ChangePasswordRoute,
+  DownloadRoute: DownloadRoute,
+  GameRatesRoute: GameRatesRoute,
+  GiftRoute: GiftRoute,
+  LiveChartRoute: LiveChartRoute,
+  Matka777AdminPanelAccessRoute: Matka777AdminPanelAccessRoute,
+  MyBetsRoute: MyBetsRoute,
+  NoticeRoute: NoticeRoute,
+  NotificationsRoute: NotificationsRoute,
+  PaymentHistoryRoute: PaymentHistoryRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  SattaRoute: SattaRoute,
+  SettingsRoute: SettingsRoute,
+  SupportRoute: SupportRoute,
+  UpiDetailsRoute: UpiDetailsRoute,
+  WalletRoute: WalletRoute,
+  WithdrawRoute: WithdrawRoute,
+  ChartIdRoute: ChartIdRoute,
+  MarketIdRoute: MarketIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

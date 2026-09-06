@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>GD BOSS777 — Offline</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0033cc" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        touch-action: manipulation;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        background: linear-gradient(160deg, #f6f8ff 0%, #eef2ff 100%);
+        color: #10193a;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        text-align: center;
+      }
+      .logo {
+        width: 104px;
+        height: 104px;
+        border-radius: 26px;
+        box-shadow: 0 12px 30px rgba(0, 51, 204, 0.22);
+      }
+      h1 {
+        font-size: 1.15rem;
+        margin: 20px 0 6px;
+      }
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #4a5578;
+        max-width: 20rem;
+      }
+      button {
+        margin-top: 22px;
+        border: 0;
+        border-radius: 999px;
+        background: #0033cc;
+        color: #fff;
+        font: inherit;
+        font-weight: 600;
+        padding: 12px 28px;
+      }
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #e0a800;
+        margin-right: 8px;
+      }
+      .status {
+        margin-top: 16px;
+        font-size: 0.78rem;
+        color: #6b7396;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img class="logo" src="/app-icon-512.png" alt="GD BOSS777 logo" />
+      <h1>You are offline</h1>
+      <p>
+        GD BOSS777 needs an internet connection to load live results. Turn on mobile data or
+        Wi-Fi and try again.
+      </p>
+      <button type="button" onclick="location.reload()">Try again</button>
+      <div class="status"><span class="dot"></span>Waiting for connection…</div>
+    </main>
+    <script>
+      window.addEventListener("online", function () {
+        location.replace("/");
+      });
+    </script>
+  </body>
+</html>
