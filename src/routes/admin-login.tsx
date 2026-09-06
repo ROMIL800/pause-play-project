@@ -39,8 +39,8 @@ function AdminLoginPage() {
     }
     setLoading(true);
     try {
-      const { phone } = await resolve({ data: { identifier: identifier.trim() } });
-      const { error: signInError } = await supabase.auth.signInWithPassword({ phone, password });
+      const { email } = await resolve({ data: { identifier: identifier.trim() } });
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       if (signInError) throw new Error("Incorrect username/mobile number or password.");
 
       const me = await session();
