@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "183862274737",
+    "project_id": "matka777-2d113",
+    "storage_bucket": "matka777-2d113.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183862274737:android:93dea7f4becdef89d3d090",
+        "android_client_info": {
+          "package_name": "com.matka777.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVfzoZ4C8tT1xVhlaNh2T9D3GdmCcPjZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
