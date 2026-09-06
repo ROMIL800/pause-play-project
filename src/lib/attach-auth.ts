@@ -1,0 +1,13 @@
+import { createMiddleware } from "@tanstack/react-start";
+
+import { supabase } from "@/integrations/supabase/client";
+
+// Client-side function middleware that attaches the current Supabase session
+// token so server functions using requireSupabaseAuth receive a bearer token.
+export const attachSupabaseAuth = createMiddleware().client(async ({ next }) => {
+  const { data } = await supabase.auth.getSession();
+  const token = data.session?.access_token;
+  return next({
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+});
