@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { registerAccount } from "@/lib/auth.functions";
 import { checkLoginThrottle, recordLoginAttempt } from "@/lib/security.functions";
 
-import { loginPhone, isValidMobile } from "@/lib/phone";
+import { syntheticEmail, isValidMobile } from "@/lib/phone";
 import { whatsappHref } from "@/lib/contact";
 import { WhatsAppLogo } from "@/components/WhatsAppLogo";
 
@@ -71,7 +71,7 @@ function AuthPage() {
         );
       }
       const { error: signInError } = await supabase.auth.signInWithPassword({
-        phone: loginPhone(phone),
+        email: syntheticEmail(phone),
         password,
       });
       await recordAttempt({ data: { identifier, success: !signInError } });
@@ -119,7 +119,7 @@ function AuthPage() {
       });
 
       const { error: signInError } = await supabase.auth.signInWithPassword({
-        phone: loginPhone(phone),
+        email: syntheticEmail(phone),
         password,
       });
       if (signInError) throw new Error("Account created. Please log in.");

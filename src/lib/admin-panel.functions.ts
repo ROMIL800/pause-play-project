@@ -12,7 +12,7 @@ export const resolveAdminLogin = createServerFn({ method: "POST" })
     z.object({ identifier: z.string().trim().min(3).max(40) }).parse(input),
   )
   .handler(async ({ data }) => {
-    const { normalizePhone, loginPhone, isValidMobile } = await import("@/lib/phone");
+    const { normalizePhone, syntheticEmail, isValidMobile } = await import("@/lib/phone");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const { data: rows, error } = await supabaseAdmin
@@ -37,7 +37,7 @@ export const resolveAdminLogin = createServerFn({ method: "POST" })
     const identifier = data.identifier.trim();
 
     if (primaryPhone && identifier.toLowerCase() === username) {
-      return { phone: loginPhone(primaryPhone) };
+      return { email: syntheticEmail(primaryPhone) };
     }
 
     if (isValidMobile(identifier)) {
@@ -45,9 +45,9 @@ export const resolveAdminLogin = createServerFn({ method: "POST" })
       // An alias mobile signs in to the primary admin account — one account,
       // one password, two ways to reach it.
       if (primaryPhone && aliasPhones.includes(normalized)) {
-        return { phone: loginPhone(primaryPhone) };
+        return { email: syntheticEmail(primaryPhone) };
       }
-      return { phone: loginPhone(normalized) };
+      return { email: syntheticEmail(normalized) };
     }
 
     throw new Error("No admin account matches that username or mobile number");
@@ -77,7 +77,8 @@ export const adminChangePassword = createServerFn({ method: "POST" })
     const { data: userRes, error: userError } = await supabaseAdmin.auth.admin.getUserById(
       context.userId,
     );
-    if (userError || !userRes?.user?.phone) {
+    const loginEmail = userRes?.user?.email;
+    if (userError || !loginEmail) {
       console.error("[admin-password] user lookup failed:", userError?.message);
       throw new Error("Could not verify your account. Please try again.");
     }
@@ -100,7 +101,7 @@ export const adminChangePassword = createServerFn({ method: "POST" })
       },
     });
     const { error: signInError } = await verifier.auth.signInWithPassword({
-      phone: `+${userRes.user.phone}`,
+      email: loginEmail,
       password: data.currentPassword,
     });
     if (signInError) throw new Error("Current password is incorrect");

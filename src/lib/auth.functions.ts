@@ -21,24 +21,29 @@ export const registerAccount = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data }) => {
-    const { normalizePhone } = await import("@/lib/phone");
+    const { normalizePhone, syntheticEmail } = await import("@/lib/phone");
     const phone = normalizePhone(data.phone);
+    const email = syntheticEmail(phone);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const { data: existing } = await supabaseAdmin
       .from("profiles")
       .select("id")
-      .eq("phone", `+${phone}`)
+      .eq("phone", phone)
       .maybeSingle();
     if (existing) {
       throw new Error("An account with this mobile number already exists. Please log in.");
     }
 
+    // Sign-in uses a deterministic address derived from the mobile number, so
+    // no SMS provider is required and the same credentials work on any host.
     const { data: created, error } = await supabaseAdmin.auth.admin.createUser({
+      email,
       phone: `+${phone}`,
       password: data.password,
+      email_confirm: true,
       phone_confirm: true,
-      user_metadata: { phone: `+${phone}`, full_name: data.fullName },
+      user_metadata: { phone, full_name: data.fullName },
     });
     if (error) {
       if (/already|registered|duplicate/i.test(error.message)) {
@@ -47,16 +52,32 @@ export const registerAccount = createServerFn({ method: "POST" })
       throw new Error(error.message);
     }
 
+    const userId = created?.user?.id;
+    if (!userId) throw new Error("Could not create the account. Please try again.");
+
+    // No database trigger owns these rows, so the account's profile, wallet
+    // and player role are created here as part of registration.
+    const { error: profileError } = await supabaseAdmin
+      .from("profiles")
+      .upsert({ id: userId, phone, full_name: data.fullName }, { onConflict: "id" });
+    if (profileError) throw new Error(profileError.message);
+
+    await supabaseAdmin.from("wallets").upsert({ user_id: userId }, { onConflict: "user_id" });
+    await supabaseAdmin
+      .from("user_roles")
+      .upsert({ user_id: userId, role: "user" }, { onConflict: "user_id,role" });
+
     // Referral reward (₹5 to the referrer) — never blocks registration.
-    if (data.referralCode && created?.user?.id) {
+    if (data.referralCode) {
       await supabaseAdmin.rpc("pay_referral_bonus", {
-        _new_user_id: created.user.id,
+        _new_user_id: userId,
         _code: data.referralCode,
       });
     }
 
-    return { ok: true, phone: `+${phone}` };
+    return { ok: true, phone, email };
   });
+
 
 /** Does the signed-in user still have to pick a new permanent password? */
 export const getPasswordStatus = createServerFn({ method: "GET" })
