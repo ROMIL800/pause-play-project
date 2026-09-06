@@ -1,9 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { ChevronLeft, Wallet, Clock } from "lucide-react";
+import { ChevronLeft, Wallet, Clock, Loader2 } from "lucide-react";
 import { GAMES, titleFromId } from "@/lib/mock-data";
 import { SATTA_MARKETS, sattaChartUrl, getSattaMarkets } from "@/lib/satta.functions";
+import { getDailyChart, getPanelChart } from "@/lib/charts.functions";
 import { useBalance, formatBalance } from "@/lib/wallet-store";
 
 function marketNameFor(id: string) {
@@ -20,56 +21,16 @@ export const Route = createFileRoute("/chart/$id")({
     return {
       meta: [
         { title: `${name} — Result Chart` },
-        { name: "description", content: `Weekly result chart for ${name}.` },
+        { name: "description", content: `Live result chart for ${name}.` },
         { property: "og:title", content: `${name} — Result Chart` },
-        { property: "og:description", content: `Weekly result chart for ${name}.` },
+        { property: "og:description", content: `Live result chart for ${name}.` },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary" },
       ],
     };
   },
   component: ChartPage,
 });
-
-// Deterministic mock generator
-function rng(seed: number) {
-  let s = seed;
-  return () => {
-    s = (s * 9301 + 49297) % 233280;
-    return s / 233280;
-  };
-}
-
-function buildWeeks(seed: number) {
-  const r = rng(seed);
-  const weeks: {
-    range: string;
-    days: { open: string; jodi: string; close: string; red: boolean }[];
-  }[] = [];
-  const start = new Date("2026-06-22");
-  for (let w = 0; w < 6; w++) {
-    const s = new Date(start);
-    s.setDate(start.getDate() + w * 7);
-    const e = new Date(s);
-    e.setDate(s.getDate() + 6);
-    const fmt = (d: Date) => d.toISOString().slice(0, 10);
-    const days = Array.from({ length: 7 }, () => {
-      const isRed = r() > 0.6;
-      const open = String(Math.floor(r() * 900 + 100));
-      const jodi = String(Math.floor(r() * 100)).padStart(2, "0");
-      const close = String(Math.floor(r() * 900 + 100));
-      return { open, jodi, close, red: isRed };
-    });
-    weeks.push({ range: `${fmt(s)} to ${fmt(e)}`, days });
-  }
-  // last row placeholders
-  weeks.push({
-    range: "2026-08-03 to 2026-08-03",
-    days: [
-      { open: "469", jodi: "99", close: "667", red: true },
-      ...Array.from({ length: 6 }, () => ({ open: "***", jodi: "**", close: "***", red: false })),
-    ],
-  });
-  return weeks;
-}
 
 function ChartPage() {
   const { id } = Route.useParams();
@@ -77,7 +38,11 @@ function ChartPage() {
   const name = marketNameFor(id);
   const isSatta = SATTA_MARKETS.some((m) => m.id === id);
   const balance = useBalance();
+
   const fetchSatta = useServerFn(getSattaMarkets);
+  const fetchDaily = useServerFn(getDailyChart);
+  const fetchPanel = useServerFn(getPanelChart);
+
   const { data: sattaData } = useQuery({
     queryKey: ["satta-markets"],
     queryFn: () => fetchSatta(),
@@ -85,9 +50,26 @@ function ChartPage() {
     refetchInterval: 60_000,
   });
   const sattaRow = sattaData?.markets.find((m) => m.id === id);
-  const seed =
-    Array.from(id as string).reduce((a: number, c: string) => a + c.charCodeAt(0), 0) || 1;
-  const weeks = buildWeeks(seed);
+
+  const daily = useQuery({
+    queryKey: ["daily-chart", id],
+    queryFn: () => fetchDaily({ data: { marketId: id } }),
+    enabled: isSatta,
+    staleTime: 5 * 60_000,
+    refetchInterval: 5 * 60_000,
+  });
+
+  const panel = useQuery({
+    queryKey: ["panel-chart", id],
+    queryFn: () => fetchPanel({ data: { marketId: id } }),
+    enabled: !isSatta,
+    staleTime: 5 * 60_000,
+    refetchInterval: 5 * 60_000,
+  });
+
+  const loading = isSatta ? daily.isLoading : panel.isLoading;
+  const error = isSatta ? (daily.data?.error ?? null) : (panel.data?.error ?? null);
+  const sourceUrl = isSatta ? sattaChartUrl(id) : (panel.data?.source ?? "");
 
   return (
     <div className="h-[100dvh] flex flex-col overflow-hidden bg-background">
@@ -98,7 +80,7 @@ function ChartPage() {
           </button>
           <div>
             <h1 className="text-base font-extrabold uppercase tracking-wide">{name} Panel Chart</h1>
-            <div className="text-[11px] text-white/80">Weekly results</div>
+            <div className="text-[11px] text-white/80">Live results</div>
           </div>
         </div>
         <div className="flex items-center gap-1.5 text-sm font-bold">
@@ -122,49 +104,98 @@ function ChartPage() {
                 Result at {sattaRow.time}
               </div>
             )}
-            <a
-              href={sattaChartUrl(id)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-block text-xs font-bold text-[var(--brand)] underline"
-            >
-              Open full chart
-            </a>
           </div>
         )}
-        <div className="rounded-lg overflow-hidden border-2 border-[var(--gold)] bg-card">
-          <table className="w-full text-[11px] table-fixed">
-            <tbody>
-              {weeks.map((w) => (
-                <tr key={w.range} className="border-b border-[var(--gold)] last:border-b-0">
-                  <td className="align-middle p-2 text-[10px] font-bold text-foreground border-r border-[var(--gold)] w-[70px]">
-                    {w.range.split(" to ").map((d, i) => (
-                      <div key={i} className="leading-tight">
-                        {i === 1 ? <span className="text-muted-foreground">to</span> : null}
-                        <div>{d}</div>
-                      </div>
-                    ))}
-                  </td>
-                  {w.days.map((d, i) => (
+
+        {loading && (
+          <div className="h-40 grid place-items-center">
+            <Loader2 className="h-7 w-7 animate-spin text-[var(--brand)]" />
+          </div>
+        )}
+
+        {!loading && error && (
+          <div className="rounded-2xl border border-border bg-card p-5 text-center space-y-2">
+            <p className="text-sm font-bold text-foreground">Chart not available right now</p>
+            <p className="text-[11px] text-muted-foreground">{error}</p>
+            {sourceUrl && (
+              <a
+                href={sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-xs font-bold text-[var(--brand)] underline"
+              >
+                Open full chart
+              </a>
+            )}
+          </div>
+        )}
+
+        {!loading && !error && isSatta && (
+          <div className="rounded-lg overflow-hidden border-2 border-[var(--gold)] bg-card">
+            <table className="w-full text-[11px] table-fixed">
+              <tbody>
+                {(daily.data?.days ?? []).map((d) => (
+                  <tr key={d.date} className="border-b border-[var(--gold)] last:border-b-0">
+                    <td className="p-2 text-[10px] font-bold text-foreground border-r border-[var(--gold)]">
+                      {d.date}
+                    </td>
                     <td
-                      key={i}
-                      className={`p-1.5 text-center border-r border-[var(--gold)] last:border-r-0 ${
-                        d.red ? "text-[var(--destructive)]" : "text-foreground"
+                      className={`p-2 text-center text-base font-extrabold ${
+                        d.result ? "text-foreground" : "text-muted-foreground"
                       }`}
                     >
-                      <div className="text-[10px] font-bold">{d.open}</div>
-                      <div className="text-sm font-extrabold leading-tight">{d.jodi}</div>
-                      <div className="text-[10px] font-bold">{d.close}</div>
+                      {d.result || "--"}
                     </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-3 text-center text-[10px] text-muted-foreground">
-          Results update as markets declare.
-        </p>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {!loading && !error && !isSatta && (
+          <div className="rounded-lg overflow-hidden border-2 border-[var(--gold)] bg-card">
+            <table className="w-full text-[11px] table-fixed">
+              <tbody>
+                {(panel.data?.weeks ?? []).map((w) => (
+                  <tr key={w.range} className="border-b border-[var(--gold)] last:border-b-0">
+                    <td className="align-middle p-2 text-[10px] font-bold text-foreground border-r border-[var(--gold)] w-[70px]">
+                      {w.range.split(" to ").map((d, i) => (
+                        <div key={i} className="leading-tight">
+                          {i === 1 ? <span className="text-muted-foreground">to</span> : null}
+                          <div>{d}</div>
+                        </div>
+                      ))}
+                    </td>
+                    {w.days.map((d, i) => (
+                      <td
+                        key={i}
+                        className={`p-1.5 text-center border-r border-[var(--gold)] last:border-r-0 ${
+                          d.red ? "text-[var(--destructive)]" : "text-foreground"
+                        }`}
+                      >
+                        <div className="text-[10px] font-bold">{d.open}</div>
+                        <div className="text-sm font-extrabold leading-tight">{d.jodi}</div>
+                        <div className="text-[10px] font-bold">{d.close}</div>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {!loading && !error && sourceUrl && (
+          <a
+            href={sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 block text-center text-[11px] font-bold text-[var(--brand)] underline"
+          >
+            Open full chart
+          </a>
+        )}
       </main>
     </div>
   );
