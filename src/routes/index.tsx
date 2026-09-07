@@ -141,7 +141,7 @@ function Dashboard() {
         </section>
 
         <p className="pt-2 text-center text-[10px] text-muted-foreground">
-          Live results sourced from dpbossss.boston.
+          Live results sourced from dpbosssss.mobi.
         </p>
       </>
     </AppShell>
@@ -192,14 +192,13 @@ function LiveMarketCard({ market, tick }: { market: LiveMarket; tick: number }) 
             <PlayCircle className="h-5 w-5" /> Play Game
           </button>
         )}
-        <a
-          href={`https://dpbossss.boston/panel-chart-record/${slugify(market.name)}.php`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/chart/$id"
+          params={{ id: slugify(market.name) }}
           className="border border-border bg-background text-sm font-semibold px-4 py-3 rounded-full inline-flex items-center justify-center gap-1.5"
         >
           <BarChart3 className="h-4 w-4" /> Chart
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -278,14 +277,13 @@ function GameCard({ game }: { game: Game }) {
         >
           Play Now
         </Link>
-        <a
-          href={`https://dpbossss.boston/panel-chart-record/${slugify(game.name)}.php`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/chart/$id"
+          params={{ id: game.id }}
           className="border border-border bg-background text-sm font-semibold py-2.5 rounded-xl text-center inline-flex items-center justify-center gap-1.5"
         >
           <BarChart3 className="h-4 w-4" /> Chart
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export type LiveMarket = {
   closeTime: string;
 };
 
-const SOURCE = "https://dpbossss.boston/";
+const SOURCE = "https://dpbosssss.mobi/";
 
 export function slugify(name: string) {
   return name
