@@ -141,7 +141,7 @@ function Dashboard() {
         </section>
 
         <p className="pt-2 text-center text-[10px] text-muted-foreground">
-          Live results sourced from dpbossss.boston.
+          Live results sourced from dpbosssss.mobi.
         </p>
       </>
     </AppShell>
