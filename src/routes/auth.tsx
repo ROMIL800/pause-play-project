@@ -8,7 +8,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { registerAccount } from "@/lib/auth.functions";
 import { checkLoginThrottle, recordLoginAttempt } from "@/lib/security.functions";
 
-import { syntheticEmail, isValidMobile } from "@/lib/phone";
+import { isValidMobile } from "@/lib/phone";
+import { signInWithMobile } from "@/lib/mobile-signin";
 import { whatsappHref } from "@/lib/contact";
 import { WhatsAppLogo } from "@/components/WhatsAppLogo";
 
@@ -70,10 +71,7 @@ function AuthPage() {
           `Too many failed attempts. Please try again in ${gate.minutes} minute(s) or contact support.`,
         );
       }
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: syntheticEmail(phone),
-        password,
-      });
+      const { error: signInError } = await signInWithMobile(phone, password);
       await recordAttempt({ data: { identifier, success: !signInError } });
       if (signInError) {
         throw new Error("Incorrect mobile number or password");
@@ -118,10 +116,7 @@ function AuthPage() {
         },
       });
 
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: syntheticEmail(phone),
-        password,
-      });
+      const { error: signInError } = await signInWithMobile(phone, password);
       if (signInError) throw new Error("Account created. Please log in.");
       toast.success("Account created");
       navigate({ to: "/" });
