@@ -277,14 +277,13 @@ function GameCard({ game }: { game: Game }) {
         >
           Play Now
         </Link>
-        <a
-          href={`https://dpbossss.boston/panel-chart-record/${slugify(game.name)}.php`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/chart/$id"
+          params={{ id: game.id }}
           className="border border-border bg-background text-sm font-semibold py-2.5 rounded-xl text-center inline-flex items-center justify-center gap-1.5"
         >
           <BarChart3 className="h-4 w-4" /> Chart
-        </a>
+        </Link>
       </div>
     </div>
   );
