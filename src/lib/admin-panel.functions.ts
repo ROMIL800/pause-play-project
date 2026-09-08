@@ -37,7 +37,7 @@ export const resolveAdminLogin = createServerFn({ method: "POST" })
     const identifier = data.identifier.trim();
 
     if (primaryPhone && identifier.toLowerCase() === username) {
-      return { email: syntheticEmail(primaryPhone) };
+      return { phone: normalizePhone(primaryPhone), email: syntheticEmail(primaryPhone) };
     }
 
     if (isValidMobile(identifier)) {
@@ -45,13 +45,14 @@ export const resolveAdminLogin = createServerFn({ method: "POST" })
       // An alias mobile signs in to the primary admin account — one account,
       // one password, two ways to reach it.
       if (primaryPhone && aliasPhones.includes(normalized)) {
-        return { email: syntheticEmail(primaryPhone) };
+        return { phone: normalizePhone(primaryPhone), email: syntheticEmail(primaryPhone) };
       }
-      return { email: syntheticEmail(normalized) };
+      return { phone: normalized, email: syntheticEmail(normalized) };
     }
 
     throw new Error("No admin account matches that username or mobile number");
   });
+
 
 /**
  * Admin: change the sign-in password. The current password is verified by the

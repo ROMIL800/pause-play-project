@@ -18,11 +18,12 @@ export async function signInWithMobile(rawPhone: string, password: string) {
   });
   if (!phoneResult.error) return phoneResult;
 
-  const providerOff = /disabled|not enabled|unsupported/i.test(phoneResult.error.message);
-  if (!providerOff) return phoneResult;
-
-  return supabase.auth.signInWithPassword({
+  // The same account always has a stable synthetic email credential, so any
+  // phone-side failure (provider disabled, unconfirmed number) retries there.
+  const emailResult = await supabase.auth.signInWithPassword({
     email: syntheticEmail(rawPhone),
     password,
   });
+  return emailResult.error ? phoneResult : emailResult;
 }
+
