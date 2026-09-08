@@ -3,7 +3,9 @@ import { useState } from "react";
 import { ShieldCheck, Loader2 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { signInWithMobile } from "@/lib/mobile-signin";
 import { resolveAdminLogin, getAdminSession } from "@/lib/admin-panel.functions";
+
 
 export const Route = createFileRoute("/admin-login")({
   head: () => ({
@@ -39,9 +41,10 @@ function AdminLoginPage() {
     }
     setLoading(true);
     try {
-      const { email } = await resolve({ data: { identifier: identifier.trim() } });
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      const { phone } = await resolve({ data: { identifier: identifier.trim() } });
+      const { error: signInError } = await signInWithMobile(phone, password);
       if (signInError) throw new Error("Incorrect username/mobile number or password.");
+
 
       const me = await session();
       if (!me.isAdmin) {
