@@ -193,7 +193,7 @@ function LiveMarketCard({ market, tick }: { market: LiveMarket; tick: number }) 
           </button>
         )}
         <a
-          href={`https://dpbosssss.mobi/panel-chart-record/${slugify(market.name)}`}
+          href={`https://dpboss.tax/panel-chart-record/${slugify(market.name)}.php`}
           target="_blank"
           rel="noreferrer"
           className="border border-border bg-background text-sm font-semibold px-4 py-3 rounded-full inline-flex items-center justify-center gap-1.5"
@@ -279,7 +279,7 @@ function GameCard({ game }: { game: Game }) {
           Play Now
         </Link>
         <a
-          href={`https://dpbosssss.mobi/panel-chart-record/${game.id}`}
+          href={`https://dpboss.tax/panel-chart-record/${game.id}.php`}
           target="_blank"
           rel="noreferrer"
           className="border border-border bg-background text-sm font-semibold py-2.5 rounded-xl text-center inline-flex items-center justify-center gap-1.5"
