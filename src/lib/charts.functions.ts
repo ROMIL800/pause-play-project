@@ -18,7 +18,7 @@ import { z } from "zod";
 const UA =
   "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/120 Mobile Safari/537.36";
 
-const MATKA_CHART_BASE = "https://dpbosssss.mobi/panel-chart-record";
+const MATKA_CHART_BASE = "https://dpboss.tax/panel-chart-record";
 
 export type PanelDay = { open: string; jodi: string; close: string; red: boolean };
 export type PanelWeek = { range: string; days: PanelDay[] };
