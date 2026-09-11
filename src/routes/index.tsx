@@ -192,13 +192,14 @@ function LiveMarketCard({ market, tick }: { market: LiveMarket; tick: number }) 
             <PlayCircle className="h-5 w-5" /> Play Game
           </button>
         )}
-        <Link
-          to="/chart/$id"
-          params={{ id: slugify(market.name) }}
+        <a
+          href={`https://dpbosssss.mobi/panel-chart-record/${slugify(market.name)}`}
+          target="_blank"
+          rel="noreferrer"
           className="border border-border bg-background text-sm font-semibold px-4 py-3 rounded-full inline-flex items-center justify-center gap-1.5"
         >
           <BarChart3 className="h-4 w-4" /> Chart
-        </Link>
+        </a>
       </div>
     </div>
   );
@@ -277,13 +278,14 @@ function GameCard({ game }: { game: Game }) {
         >
           Play Now
         </Link>
-        <Link
-          to="/chart/$id"
-          params={{ id: game.id }}
+        <a
+          href={`https://dpbosssss.mobi/panel-chart-record/${game.id}`}
+          target="_blank"
+          rel="noreferrer"
           className="border border-border bg-background text-sm font-semibold py-2.5 rounded-xl text-center inline-flex items-center justify-center gap-1.5"
         >
           <BarChart3 className="h-4 w-4" /> Chart
-        </Link>
+        </a>
       </div>
     </div>
   );
