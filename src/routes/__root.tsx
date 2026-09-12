@@ -140,11 +140,6 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var s="#lovable-badge,[id^='lovable-badge'],[class*='lovable-badge'],iframe[src*='lovable.app/badge'],iframe[src*='lovable.dev/badge'],div[data-lovable-badge]";function hide(){document.querySelectorAll(s).forEach(function(el){el.style.setProperty('display','none','important');el.remove();});}hide();new MutationObserver(hide).observe(document.documentElement,{childList:true,subtree:true});})();`,
-          }}
-        />
       </body>
     </html>
   );
