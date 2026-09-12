@@ -137,3 +137,20 @@
   min-width: 200%;
   animation: marquee-scroll 22s linear infinite;
 }
+
+/* Hide the Lovable editor badge on the published site (owner can still edit via Lovable dashboard) */
+#lovable-badge,
+[id^="lovable-badge"],
+[class*="lovable-badge"],
+iframe[src*="lovable.app/badge"],
+iframe[src*="lovable.dev/badge"],
+div[data-lovable-badge],
+a[href*="lovable.app/?via"],
+a[href*="lovable.dev/?via"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
