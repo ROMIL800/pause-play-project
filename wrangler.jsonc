@@ -3,6 +3,8 @@
 
   "name": "pause-play-project",
 
+  "keep_vars": true,
+
   "compatibility_date": "2026-09-08",
 
   "compatibility_flags": [
