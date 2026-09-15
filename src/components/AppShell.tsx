@@ -11,7 +11,7 @@ export function AppShell({ title, children }: { title?: string; children: ReactN
     <div className="h-[100dvh] flex flex-col overflow-hidden bg-background">
       <AppHeader title={title} />
       <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
-        <div className="mx-auto w-full max-w-md px-4 pt-4 pb-24 space-y-6">{children}</div>
+        <div className="mx-auto w-full max-w-md px-4 pt-4 pb-24 space-y-5">{children}</div>
       </main>
       <BottomNav />
     </div>

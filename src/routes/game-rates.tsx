@@ -15,13 +15,13 @@ export const Route = createFileRoute("/game-rates")({
 });
 
 const RATES = [
-  { name: "Single Digit", rate: "1 : 9.5" },
-  { name: "Jodi Digit", rate: "1 : 95" },
-  { name: "Single Panna", rate: "1 : 142" },
-  { name: "Double Panna", rate: "1 : 285" },
-  { name: "Triple Panna", rate: "1 : 950" },
-  { name: "Half Sangam", rate: "1 : 1400" },
-  { name: "Full Sangam", rate: "1 : 9500" },
+  { name: "Single Digit", rate: "₹10 → ₹95" },
+  { name: "Jodi Digit", rate: "₹10 → ₹950" },
+  { name: "Single Panna", rate: "₹10 → ₹1,420" },
+  { name: "Double Panna", rate: "₹10 → ₹2,850" },
+  { name: "Triple Panna", rate: "₹10 → ₹9,500" },
+  { name: "Half Sangam", rate: "₹10 → ₹14,000" },
+  { name: "Full Sangam", rate: "₹10 → ₹95,000" },
 ];
 
 function GameRatesPage() {
