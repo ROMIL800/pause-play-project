@@ -13,7 +13,6 @@ import { signInWithMobile } from "@/lib/mobile-signin";
 import { whatsappHref } from "@/lib/contact";
 import { WhatsAppLogo } from "@/components/WhatsAppLogo";
 
-
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [

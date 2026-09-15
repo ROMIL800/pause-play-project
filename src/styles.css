@@ -145,8 +145,13 @@
 }
 
 @keyframes status-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--success) 28%, transparent); }
-  50% { box-shadow: 0 0 0 5px transparent; }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--success) 28%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 5px transparent;
+  }
 }
 
 .status-live {
@@ -155,7 +160,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .status-live,
-  .marquee-track { animation: none; }
+  .marquee-track {
+    animation: none;
+  }
 }
 
 /* Hide the Lovable editor badge on the published site (owner can still edit via Lovable dashboard) */

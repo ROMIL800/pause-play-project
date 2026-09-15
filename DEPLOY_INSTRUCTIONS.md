@@ -8,21 +8,25 @@
 ## 📋 Next Steps (Repo Settings)
 
 ### Step 1: Go to Repository Settings
+
 - Open your repo: https://github.com/ROMIL800/pause-play-project
 - Go to **Settings** tab
 
 ### Step 2: Enable Pages
+
 - Left sidebar → **Pages**
 - Under "Build and deployment":
   - Source: **GitHub Actions** ✅
   - (The workflow will auto-trigger)
 
 ### Step 3: Wait for Deploy
+
 - Go to **Actions** tab
 - Wait for "Deploy to GitHub Pages" workflow to complete (usually 2-3 minutes)
 - Green checkmark = Success! ✅
 
 ### Step 4: Your Site is Live!
+
 **URL:** `https://ROMIL800.github.io/pause-play-project/`
 
 ---

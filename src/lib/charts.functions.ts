@@ -15,8 +15,7 @@ import { z } from "zod";
  * page says so instead of showing invented numbers.
  */
 
-const UA =
-  "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/120 Mobile Safari/537.36";
+const UA = "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/120 Mobile Safari/537.36";
 
 const MATKA_CHART_BASE = "https://dpboss.tax/panel-chart-record";
 
@@ -112,7 +111,12 @@ export const getPanelChart = createServerFn({ method: "POST" })
   .handler(
     async ({
       data,
-    }): Promise<{ weeks: PanelWeek[]; source: string; fetchedAt: number; error: string | null }> => {
+    }): Promise<{
+      weeks: PanelWeek[];
+      source: string;
+      fetchedAt: number;
+      error: string | null;
+    }> => {
       const slug = data.marketId.replace(/[^a-z0-9-]/gi, "").toLowerCase();
       const source = `${MATKA_CHART_BASE}/${slug}.php`;
       try {

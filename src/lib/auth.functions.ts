@@ -78,7 +78,6 @@ export const registerAccount = createServerFn({ method: "POST" })
     return { ok: true, phone, email };
   });
 
-
 /** Does the signed-in user still have to pick a new permanent password? */
 export const getPasswordStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])

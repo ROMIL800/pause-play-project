@@ -14,10 +14,7 @@ const bidSchema = z.object({
  * Blocked accounts must not be able to bet or move money.
  * Throws for any account an admin has flagged as blocked.
  */
-async function assertNotBlocked(
-  supabase: SupabaseClient<Database>,
-  userId: string,
-): Promise<void> {
+async function assertNotBlocked(supabase: SupabaseClient<Database>, userId: string): Promise<void> {
   const { data } = await supabase
     .from("profiles")
     .select("is_blocked")
@@ -27,7 +24,6 @@ async function assertNotBlocked(
     throw new Error("Your account has been blocked. Please contact support.");
   }
 }
-
 
 /** Profile + wallet balance for the signed-in user. */
 export const getAccount = createServerFn({ method: "GET" })

@@ -5,6 +5,9 @@ const OFFLINE_URLS = ["/offline.html", "/app-icon-512.png", "/favicon.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(OFFLINE_CACHE).then((cache) => cache.addAll(OFFLINE_URLS)).catch(() => undefined),
+    caches
+      .open(OFFLINE_CACHE)
+      .then((cache) => cache.addAll(OFFLINE_URLS))
+      .catch(() => undefined),
   );
 });

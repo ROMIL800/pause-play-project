@@ -53,7 +53,6 @@ export function BrandLogo({ className }: { className?: string }) {
         >
           777
         </text>
-
       </g>
 
       {/* Wordmark */}
@@ -144,7 +143,6 @@ export function BrandMark({ className }: { className?: string }) {
       >
         777
       </text>
-
     </svg>
   );
 }

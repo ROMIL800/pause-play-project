@@ -7,18 +7,18 @@ Status: production candidate (Phase 0–2 recovery complete)
 
 ## 1. Architecture Overview
 
-| Layer | Technology |
-| --- | --- |
-| Framework | TanStack Start v1 (React 19, SSR + server functions) |
-| Build tool | Vite 8 |
-| Routing | TanStack Router (file-based, `src/routes`) |
-| Data fetching | TanStack Query v5 + `createServerFn` RPC |
-| Styling | Tailwind CSS v4 (`src/styles.css`, `@theme` tokens) + shadcn/ui (Radix) |
-| Backend | Lovable Cloud (Supabase: Postgres, Auth, RLS) |
-| Phone auth | Firebase Phone Authentication (project `matka777-2d113`) |
-| Charts | chart.js / react-chartjs-2 (+ recharts, legacy) |
-| Mobile shell | Capacitor 8 (Android), package `com.matka777.app` |
-| Deploy target | Edge/Worker runtime (Cloudflare workerd) |
+| Layer         | Technology                                                              |
+| ------------- | ----------------------------------------------------------------------- |
+| Framework     | TanStack Start v1 (React 19, SSR + server functions)                    |
+| Build tool    | Vite 8                                                                  |
+| Routing       | TanStack Router (file-based, `src/routes`)                              |
+| Data fetching | TanStack Query v5 + `createServerFn` RPC                                |
+| Styling       | Tailwind CSS v4 (`src/styles.css`, `@theme` tokens) + shadcn/ui (Radix) |
+| Backend       | Lovable Cloud (Supabase: Postgres, Auth, RLS)                           |
+| Phone auth    | Firebase Phone Authentication (project `matka777-2d113`)                |
+| Charts        | chart.js / react-chartjs-2 (+ recharts, legacy)                         |
+| Mobile shell  | Capacitor 8 (Android), package `com.matka777.app`                       |
+| Deploy target | Edge/Worker runtime (Cloudflare workerd)                                |
 
 Request flow:
 
@@ -87,29 +87,29 @@ the app's real identity for all data access.
 All routes are public files under `src/routes` (no `_authenticated/` layout);
 auth-sensitive pages redirect via `use-auth`/server-fn errors.
 
-| Path | File | Purpose |
-| --- | --- | --- |
-| `/` | `index.tsx` | Home: markets list, marquee, quick actions |
-| `/auth` | `auth.tsx` | Phone + OTP login (Firebase) |
-| `/wallet` | `wallet.tsx` | Balance, wallet actions |
-| `/add-fund` | `add-fund.tsx` | Deposit request (UPI + 12-digit UTR) |
-| `/withdraw` | `withdraw.tsx` | Withdrawal request |
-| `/payment-history` | `payment-history.tsx` | Deposit/withdraw history |
-| `/my-bets` | `my-bets.tsx` | User bet history |
-| `/market/$id` | `market.$id.tsx` | Bet-type selection for a market |
-| `/market/$id/$type` | `market.$id.$type.tsx` | Bid entry screen per game type |
-| `/game-rates` | `game-rates.tsx` | Payout rate table |
-| `/chart/$id` | `chart.$id.tsx` | Per-market result chart |
-| `/live-chart` | `live-chart.tsx` | Live results chart |
-| `/satta` | `satta.tsx` | Satta markets |
-| `/bank-details` | `bank-details.tsx` | Bank account for payouts |
-| `/upi-details` | `upi-details.tsx` | UPI details |
-| `/gift` | `gift.tsx` | Gift / promo screen |
-| `/notice` | `notice.tsx` | Notices / announcements |
-| `/support` | `support.tsx` | WhatsApp / contact support |
-| `/settings` | `settings.tsx` | App settings |
-| `/admin` | `admin.tsx` | Admin panel (requests, approvals, UPI) |
-| root layout | `__root.tsx` | Shell, providers, Sonner toaster, auth listener |
+| Path                | File                   | Purpose                                         |
+| ------------------- | ---------------------- | ----------------------------------------------- |
+| `/`                 | `index.tsx`            | Home: markets list, marquee, quick actions      |
+| `/auth`             | `auth.tsx`             | Phone + OTP login (Firebase)                    |
+| `/wallet`           | `wallet.tsx`           | Balance, wallet actions                         |
+| `/add-fund`         | `add-fund.tsx`         | Deposit request (UPI + 12-digit UTR)            |
+| `/withdraw`         | `withdraw.tsx`         | Withdrawal request                              |
+| `/payment-history`  | `payment-history.tsx`  | Deposit/withdraw history                        |
+| `/my-bets`          | `my-bets.tsx`          | User bet history                                |
+| `/market/$id`       | `market.$id.tsx`       | Bet-type selection for a market                 |
+| `/market/$id/$type` | `market.$id.$type.tsx` | Bid entry screen per game type                  |
+| `/game-rates`       | `game-rates.tsx`       | Payout rate table                               |
+| `/chart/$id`        | `chart.$id.tsx`        | Per-market result chart                         |
+| `/live-chart`       | `live-chart.tsx`       | Live results chart                              |
+| `/satta`            | `satta.tsx`            | Satta markets                                   |
+| `/bank-details`     | `bank-details.tsx`     | Bank account for payouts                        |
+| `/upi-details`      | `upi-details.tsx`      | UPI details                                     |
+| `/gift`             | `gift.tsx`             | Gift / promo screen                             |
+| `/notice`           | `notice.tsx`           | Notices / announcements                         |
+| `/support`          | `support.tsx`          | WhatsApp / contact support                      |
+| `/settings`         | `settings.tsx`         | App settings                                    |
+| `/admin`            | `admin.tsx`            | Admin panel (requests, approvals, UPI)          |
+| root layout         | `__root.tsx`           | Shell, providers, Sonner toaster, auth listener |
 
 ---
 
@@ -162,14 +162,14 @@ app_settings / phone_otps — standalone
 
 ### Database functions (RPC)
 
-| Function | Security | Purpose |
-| --- | --- | --- |
-| `handle_new_user()` | DEFINER, trigger | Creates profile + wallet on signup |
-| `grant_owner_admin()` | DEFINER, trigger | Grants `admin` to the owner phone ending `7597886713` |
-| `has_role(_user_id, _role)` | DEFINER, stable | Non-recursive role check used by RLS |
-| `place_bet_debit(_user_id, _amount)` | DEFINER | Atomic conditional debit; raises `INSUFFICIENT_BALANCE` |
-| `wallet_credit(_user_id, _amount)` | DEFINER | Atomic credit (upserts wallet) |
-| `update_updated_at_column()` | trigger | Maintains `updated_at` |
+| Function                             | Security         | Purpose                                                 |
+| ------------------------------------ | ---------------- | ------------------------------------------------------- |
+| `handle_new_user()`                  | DEFINER, trigger | Creates profile + wallet on signup                      |
+| `grant_owner_admin()`                | DEFINER, trigger | Grants `admin` to the owner phone ending `7597886713`   |
+| `has_role(_user_id, _role)`          | DEFINER, stable  | Non-recursive role check used by RLS                    |
+| `place_bet_debit(_user_id, _amount)` | DEFINER          | Atomic conditional debit; raises `INSUFFICIENT_BALANCE` |
+| `wallet_credit(_user_id, _amount)`   | DEFINER          | Atomic credit (upserts wallet)                          |
+| `update_updated_at_column()`         | trigger          | Maintains `updated_at`                                  |
 
 Triggers: `on_auth_user_created` (auth.users), `profiles_owner_admin`,
 and `*_updated_at` on app_settings, bets, profiles, transactions, wallets.
@@ -177,6 +177,7 @@ and `*_updated_at` on app_settings, bets, profiles, transactions, wallets.
 ### Server functions (`createServerFn`)
 
 `src/lib/account.functions.ts`
+
 - `getAccount` (GET, auth) — phone, full name, balance
 - `listBets` (GET, auth) — last 200 bets
 - `placeBet` (POST, auth) — validates bids, debits wallet via RPC, inserts bet + `bet` transaction
@@ -184,6 +185,7 @@ and `*_updated_at` on app_settings, bets, profiles, transactions, wallets.
 - `createFundRequest` (POST, auth) — deposit/withdraw request with all business rules
 
 `src/lib/admin.functions.ts`
+
 - `getIsAdmin` (GET, auth)
 - `getDepositUpi` (GET, public) — reads `app_settings.deposit_upi_id`
 - `updateDepositUpi` (POST, admin)
@@ -191,6 +193,7 @@ and `*_updated_at` on app_settings, bets, profiles, transactions, wallets.
 - `reviewRequest` (POST, admin) — atomic claim + approve/reject
 
 `src/lib/firebase-auth.functions.ts`
+
 - `exchangeFirebaseToken` (POST, public) — verifies Firebase ID token, mints Cloud session
 
 `src/lib/markets.functions.ts` → `getLiveMarkets`; `src/lib/satta.functions.ts` → `getSattaMarkets`.
@@ -199,16 +202,16 @@ and `*_updated_at` on app_settings, bets, profiles, transactions, wallets.
 
 ## 5. Firebase Configuration
 
-| Item | Value |
-| --- | --- |
-| Project ID | `matka777-2d113` |
-| Auth domain | `matka777-2d113.firebaseapp.com` |
-| Sender ID | `183862274737` |
-| Web App ID | `1:183862274737:web:d5dcd8d975d333add3d090` |
-| Storage bucket | `matka777-2d113.firebasestorage.app` |
-| Android package | `com.matka777.app` |
-| Android config | `android/app/google-services.json` |
-| Sign-in method | Phone (SMS OTP), invisible reCAPTCHA |
+| Item            | Value                                       |
+| --------------- | ------------------------------------------- |
+| Project ID      | `matka777-2d113`                            |
+| Auth domain     | `matka777-2d113.firebaseapp.com`            |
+| Sender ID       | `183862274737`                              |
+| Web App ID      | `1:183862274737:web:d5dcd8d975d333add3d090` |
+| Storage bucket  | `matka777-2d113.firebasestorage.app`        |
+| Android package | `com.matka777.app`                          |
+| Android config  | `android/app/google-services.json`          |
+| Sign-in method  | Phone (SMS OTP), invisible reCAPTCHA        |
 
 Config lives in `src/lib/firebase.ts` with `VITE_FIREBASE_*` env overrides and
 hardcoded fallbacks (these are publishable client identifiers).
@@ -245,6 +248,7 @@ required, since a solved invisible reCAPTCHA token is single-use),
 `wallet_credit` and `place_bet_debit` mutate it, both SECURITY DEFINER and atomic.
 
 **Deposit**
+
 1. `/add-fund`: app shows the payable UPI ID from `getDepositUpi`.
 2. User pays externally, then submits amount + 12-digit UTR.
 3. `createFundRequest` enforces: minimum ₹300, UTR required and globally unique
@@ -255,6 +259,7 @@ required, since a solved invisible reCAPTCHA token is single-use),
    calls `wallet_credit`, then sets `approved`. On RPC failure the claim is released back to `pending`.
 
 **Withdraw**
+
 1. `/withdraw`: minimum ₹1000.
 2. `createFundRequest` computes available balance = `wallets.balance` − sum of
    pending withdrawals, so money already reserved cannot be requested twice.
@@ -291,14 +296,14 @@ never credit twice. (Phase 1 added them to the status CHECK constraint.)
 
 Auto-generated in `.env` (do not edit):
 
-| Name | Scope |
-| --- | --- |
-| `VITE_SUPABASE_URL` | client |
+| Name                            | Scope  |
+| ------------------------------- | ------ |
+| `VITE_SUPABASE_URL`             | client |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | client |
-| `VITE_SUPABASE_PROJECT_ID` | client |
-| `SUPABASE_URL` | server |
-| `SUPABASE_PUBLISHABLE_KEY` | server |
-| `SUPABASE_PROJECT_ID` | server |
+| `VITE_SUPABASE_PROJECT_ID`      | client |
+| `SUPABASE_URL`                  | server |
+| `SUPABASE_PUBLISHABLE_KEY`      | server |
+| `SUPABASE_PROJECT_ID`           | server |
 
 Backend secrets (managed, not in files): `SUPABASE_SERVICE_ROLE_KEY`,
 `SUPABASE_ANON_KEY`, `SUPABASE_DB_URL`, `LOVABLE_API_KEY`.
@@ -314,11 +319,15 @@ Optional client overrides (fallbacks exist in code): `VITE_FIREBASE_API_KEY`,
 `capacitor.config.ts`:
 
 ```ts
-appId:   "com.matka777.app"
-appName: "GD BOSS777"
-webDir:  "dist/client"
-android: { allowMixedContent: false }
-server:  { androidScheme: "https" }   // WebView origin = https://localhost
+appId: "com.matka777.app";
+appName: "GD BOSS777";
+webDir: "dist/client";
+android: {
+  allowMixedContent: false;
+}
+server: {
+  androidScheme: "https";
+} // WebView origin = https://localhost
 ```
 
 - Android package name: **com.matka777.app**
@@ -352,6 +361,7 @@ server:  { androidScheme: "https" }   // WebView origin = https://localhost
 ## 12. Production Checklist
 
 **Backend**
+
 - [x] Schema, RPCs, triggers, RLS, grants restored
 - [x] `transactions.status` constraint includes `processing_*` (Phase 1)
 - [ ] Verify owner admin role exists in production data
@@ -359,6 +369,7 @@ server:  { androidScheme: "https" }   // WebView origin = https://localhost
 - [ ] Add pagination/archival for transactions and bets
 
 **Firebase**
+
 - [x] Web app id corrected
 - [x] Persistence + reCAPTCHA resend fix
 - [x] Server-side token claim validation
@@ -367,6 +378,7 @@ server:  { androidScheme: "https" }   // WebView origin = https://localhost
 - [ ] Add SHA-1 and SHA-256 release fingerprints to the Android app
 
 **Android / Play Store**
+
 - [ ] `npx cap add android` and commit or archive the native project
 - [ ] App icon, splash, adaptive icon assets
 - [ ] Release keystore + signing config, build AAB
@@ -375,6 +387,7 @@ server:  { androidScheme: "https" }   // WebView origin = https://localhost
       18+ content rating, privacy policy URL, responsible-gaming disclosures
 
 **App**
+
 - [ ] Result declaration + bet settlement flow
 - [ ] Replace mock market data with live source
 - [ ] Push notifications (FCM) if required

@@ -53,7 +53,6 @@ export const resolveAdminLogin = createServerFn({ method: "POST" })
     throw new Error("No admin account matches that username or mobile number");
   });
 
-
 /**
  * Admin: change the sign-in password. The current password is verified by the
  * authentication backend itself (never compared in the browser or database).

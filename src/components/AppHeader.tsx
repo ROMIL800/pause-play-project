@@ -99,7 +99,7 @@ export function AppHeader({ title }: { title?: string }) {
                 aria-label={
                   unreadCount > 0 ? `Notifications, ${unreadCount} unread` : "Notifications"
                 }
-               className="relative h-10 w-10 rounded-lg border border-primary-foreground/20 bg-primary-foreground/10 grid place-items-center active:scale-95"
+                className="relative h-10 w-10 rounded-lg border border-primary-foreground/20 bg-primary-foreground/10 grid place-items-center active:scale-95"
               >
                 <Bell className="h-5 w-5" />
                 {unreadCount > 0 && (
@@ -142,20 +142,33 @@ export function AppHeader({ title }: { title?: string }) {
                 aria-label="Select language"
                 className="absolute inset-0 cursor-pointer opacity-0"
               >
-                {LANGUAGES.map((item) => <option key={item.code} value={item.code}>{item.label}</option>)}
+                {LANGUAGES.map((item) => (
+                  <option key={item.code} value={item.code}>
+                    {item.label}
+                  </option>
+                ))}
               </select>
               {LANGUAGES.find((item) => item.code === language)?.short}
             </label>
           </div>
           <div className="mt-2 rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-2.5 backdrop-blur flex items-center gap-2.5">
-              <div className="gold-gradient h-7 w-7 rounded-lg grid place-items-center shadow">
-                <Wallet className="h-3.5 w-3.5 text-[var(--brand-deep)]" />
+            <div className="gold-gradient h-7 w-7 rounded-lg grid place-items-center shadow">
+              <Wallet className="h-3.5 w-3.5 text-[var(--brand-deep)]" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="truncate text-[10px] font-semibold text-primary-foreground/75">
+                {displayName}
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-[10px] font-semibold text-primary-foreground/75">{displayName}</div>
-                <div className="mt-0.5 flex items-center gap-1 text-[9px] text-primary-foreground/70"><ShieldCheck className="h-3 w-3" /> {t("secure")}</div>
+              <div className="mt-0.5 flex items-center gap-1 text-[9px] text-primary-foreground/70">
+                <ShieldCheck className="h-3 w-3" /> {t("secure")}
               </div>
-              <div className="text-right"><div className="text-[9px] uppercase text-primary-foreground/70">{t("balance")}</div><div className="text-base font-extrabold leading-tight">₹{formatBalance(balance)}</div></div>
+            </div>
+            <div className="text-right">
+              <div className="text-[9px] uppercase text-primary-foreground/70">{t("balance")}</div>
+              <div className="text-base font-extrabold leading-tight">
+                ₹{formatBalance(balance)}
+              </div>
+            </div>
           </div>
 
           {title && <h1 className="mt-2 text-base font-bold tracking-tight">{title}</h1>}

@@ -61,7 +61,8 @@ export default defineConfig({
           },
           {
             urlPattern: ({ request, sameOrigin }: { request: Request; sameOrigin: boolean }) =>
-              sameOrigin && ["style", "script", "worker", "image", "font"].includes(request.destination),
+              sameOrigin &&
+              ["style", "script", "worker", "image", "font"].includes(request.destination),
             handler: "StaleWhileRevalidate",
             options: {
               cacheName: "assets",

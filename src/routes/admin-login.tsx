@@ -6,7 +6,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { signInWithMobile } from "@/lib/mobile-signin";
 import { resolveAdminLogin, getAdminSession } from "@/lib/admin-panel.functions";
 
-
 export const Route = createFileRoute("/admin-login")({
   head: () => ({
     meta: [
@@ -44,7 +43,6 @@ function AdminLoginPage() {
       const { phone } = await resolve({ data: { identifier: identifier.trim() } });
       const { error: signInError } = await signInWithMobile(phone, password);
       if (signInError) throw new Error("Incorrect username/mobile number or password.");
-
 
       const me = await session();
       if (!me.isAdmin) {
